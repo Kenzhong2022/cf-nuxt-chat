@@ -14,7 +14,29 @@
 	"observability": {
 		"enabled": true
 	},
-	"upload_source_maps": true
+	"upload_source_maps": true,
+	/**
+	 * Durable Objects
+	 * https://developers.cloudflare.com/durable-objects/
+	 */
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "CHAT_ROOM",
+				"class_name": "ChatRoom"
+			}
+		]
+	},
+	/**
+	 * 声明式 DO 类管理（替代旧的 migrations 数组），免费计划必须使用 sqlite 存储
+	 * https://developers.cloudflare.com/durable-objects/reference/durable-objects-migrations/
+	 */
+	"exports": {
+		"ChatRoom": {
+			"type": "durable-object",
+			"storage": "sqlite"
+		}
+	}
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

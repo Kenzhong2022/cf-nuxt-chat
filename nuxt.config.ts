@@ -6,6 +6,10 @@ export default defineNuxtConfig({
   nitro: {
     preset: "cloudflare_module",
 
+    // 自定义 Worker 入口：负责把 /room/:id 的 WebSocket 升级请求路由到
+    // 对应的 ChatRoom Durable Object，其余请求仍交给 Nitro 处理
+    entry: "{{ rootDir }}/worker/index.ts",
+
     cloudflare: {
       deployConfig: true,
       nodeCompat: true
