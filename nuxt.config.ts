@@ -27,5 +27,9 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["nitro-cloudflare-dev"],
+  modules: ["@element-plus/nuxt", "@nuxtjs/tailwindcss"],
+  elementPlus: {
+    // 自动导入所有组件
+    importStyle: "scss",
+  },
 });
