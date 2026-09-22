@@ -1,7 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+
+  runtimeConfig: {
+    databaseUrl: process.env.NUXT_DATABASE_URL,
+    jwt: {
+      accessSecret: process.env.NUXT_JWT_ACCESS_SECRET,
+      refreshSecret: process.env.NUXT_JWT_REFRESH_SECRET,
+    },
+  },
 
   nitro: {
     preset: "cloudflare_module",
@@ -12,9 +20,9 @@ export default defineNuxtConfig({
 
     cloudflare: {
       deployConfig: true,
-      nodeCompat: true
-    }
+      nodeCompat: true,
+    },
   },
 
-  modules: ["nitro-cloudflare-dev"]
-})
+  modules: ["nitro-cloudflare-dev"],
+});
