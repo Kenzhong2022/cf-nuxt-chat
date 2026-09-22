@@ -2,7 +2,8 @@ import { verifyAccessToken } from "~~/server/utils/jwt";
 
 // 白名单：/api/auth/* 下的全部公开接口免校验
 // （login、register、token、authorize、refresh）
-const PUBLIC_PREFIX = "/api/auth/";
+// /api/test 为公开测试接口
+const PUBLIC_PREFIXES = ["/api/auth/", "/api/test"];
 
 export default defineEventHandler(async (event) => {
   const url = getRequestURL(event);
@@ -11,7 +12,7 @@ export default defineEventHandler(async (event) => {
   if (!url.pathname.startsWith("/api/")) return;
 
   // 白名单放行
-  if (url.pathname.startsWith(PUBLIC_PREFIX)) return;
+  if (PUBLIC_PREFIXES.some((p) => url.pathname.startsWith(p))) return;
 
   // 提取 Authorization: Bearer <access_token>
   const authorization = getHeader(event, "authorization");
