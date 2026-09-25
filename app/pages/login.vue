@@ -125,6 +125,13 @@ const handleLogin = async () => {
         const clientId = route.query.client_id as string;
         const redirectUri = route.query.redirect_uri as string;
 
+        // 直接访问 /login（非 OAuth 授权流程）时 query 无 client_id/redirect_uri，
+        // 此时 auth_session cookie 已种下，无需发码，回首页即可
+        if (!clientId || !redirectUri) {
+          window.location.href = "/";
+          return;
+        }
+
         const authorizeUrl = new URL(
           "/api/auth/authorize",
           window.location.origin,
